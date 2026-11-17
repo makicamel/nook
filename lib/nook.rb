@@ -65,6 +65,13 @@ module Nook
     def cylinder(diameter:, height:, top_diameter: diameter, segments: nil)
       Shape.new(op: 'cylinder', diameter: diameter, top_diameter: top_diameter, height: height, segments: segments)
     end
+
+    # A flat outline given as [x, y] points, raised to height. offset grows the
+    # outline outward by that distance, or shrinks it when negative, keeping its
+    # corners sharp, and corner_radius then rounds the outward corners.
+    def prism(points, height:, offset: 0, corner_radius: 0)
+      Shape.new(op: 'prism', points: points, height: height, offset: offset, corner_radius: corner_radius)
+    end
   end
 
   class Shape

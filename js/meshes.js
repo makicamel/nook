@@ -3,7 +3,7 @@ import Module from 'manifold-3d';
 const wasm = await Module();
 wasm.setup();
 wasm.setCircularSegments(96);
-const { Manifold } = wasm;
+const { Manifold, CrossSection } = wasm;
 
 // Manifold objects live in WebAssembly memory and are freed by hand, so every
 // one made on the way is recorded in `created`.
@@ -24,6 +24,17 @@ function evaluate(tree, created) {
     case 'cylinder':
       // 0 segments lets manifold-3d choose the count from setCircularSegments.
       return Manifold.cylinder(tree.height, tree.diameter / 2, tree.top_diameter / 2, tree.segments ?? 0);
+    case 'prism': {
+      // NonZero accepts the points in either winding order. A miter limit of 4
+      // keeps corners down to about 30 degrees sharp while offsetting. Shrinking
+      // and then growing by the same radius rounds the outward corners.
+      const outline = new CrossSection([tree.points], 'NonZero');
+      const offset = outline.offset(tree.offset, 'Miter', 4);
+      const shrunk = offset.offset(-tree.corner_radius, 'Round');
+      const rounded = shrunk.offset(tree.corner_radius, 'Round');
+      created.push(outline, offset, shrunk, rounded);
+      return rounded.extrude(tree.height);
+    }
     case 'move':
       return toManifold(tree.child, created).translate(tree.offset);
     case 'union':

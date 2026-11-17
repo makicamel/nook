@@ -45,6 +45,8 @@ end
     - Shapes centered on the x and y axes, with the bottom face on z = 0
 - `cylinder(..., top_diameter:, segments:)`
     - Optional arguments. `top_diameter` makes a cone, and a few `segments` make a prism or pyramid
+- `prism(points, height:, offset:, corner_radius:)`
+    - A flat outline given as `[x, y]` points, raised to `height`. `offset` grows the outline outward, or shrinks it when negative, and `corner_radius` rounds its corners
 - `+`, `-`, `&`
     - Union, difference, and intersection of shapes
 - `move(x:, y:, z:)`, `up(distance)`
