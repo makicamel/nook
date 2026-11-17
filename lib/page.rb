@@ -5,7 +5,7 @@ module Nook
   # to the JavaScript host, which makes the meshes and draws them.
   class Page < Funicular::Component
     def initialize_state
-      { model: Nook::REGISTRY.keys.first, values: {}, colors: {}, display: 'color', upside_down: nil }
+      { model: initial_model, values: {}, colors: {}, display: 'color', upside_down: nil }
     end
 
     def component_mounted
@@ -70,10 +70,22 @@ module Nook
       state[:upside_down].nil? ? @built[:printed_upside_down] : state[:upside_down]
     end
 
+    # The chosen model is kept in the URL fragment, so that a reload or a
+    # shared link opens the same model.
+    def initial_model
+      name = JS.global[:location][:hash].to_s.delete_prefix('#')
+      Nook::REGISTRY.key?(name) ? name : Nook::REGISTRY.keys.first
+    end
+
+    def choose_model(name)
+      JS.global[:location][:hash] = name
+      patch(model: name, values: {}, colors: {}, upside_down: nil)
+    end
+
     def model_field
       label(class: 'field') do
         span { 'Model' }
-        select(onchange: ->(event) { patch(model: event.target[:value], values: {}, colors: {}, upside_down: nil) }) do
+        select(onchange: ->(event) { choose_model(event.target[:value]) }) do
           Nook::REGISTRY.keys.each do |name|
             option(value: name, selected: name == state[:model]) { name }
           end
