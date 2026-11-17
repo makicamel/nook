@@ -21,7 +21,8 @@ export class Preview {
 
   // parts: [{ hex, opacity, positions, triangles }]
   // mode: 'color' shows filament colors, 'mesh' shows the triangles in one plain color.
-  // upsideDown turns the parts half a turn around the x axis and sets them back on the bed.
+  // upsideDown turns the parts half a turn around the y axis, which keeps what is drawn
+  // toward -y nearest to the camera, and sets them back on the bed.
   show(parts, mode, upsideDown) {
     this.mode = mode;
     this.parts.children.forEach((child) => {
@@ -35,7 +36,7 @@ export class Preview {
       geometry.setIndex(new THREE.BufferAttribute(part.triangles, 1));
       this.parts.add(new THREE.Mesh(geometry, this.surfaceMaterial(part)), this.lines(geometry));
     }
-    this.parts.rotation.x = upsideDown ? Math.PI : 0;
+    this.parts.rotation.y = upsideDown ? Math.PI : 0;
     this.parts.position.z = 0;
     this.parts.position.z = -new THREE.Box3().setFromObject(this.parts).min.z;
     this.render();
