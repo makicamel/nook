@@ -20,7 +20,7 @@ module Nook
     def build(values)
       builder = Builder.new(values)
       builder.instance_eval(&@block)
-      { name: @name, params: builder.params, parts: builder.parts }
+      { name: @name, params: builder.params, parts: builder.parts, printed_upside_down: builder.printed_upside_down? }
     end
   end
 
@@ -31,6 +31,17 @@ module Nook
       @values = values
       @params = []
       @parts = []
+      @printed_upside_down = false
+    end
+
+    # A model is written in the position it prints in. This marks one that
+    # prints with its top on the bed.
+    def printed_upside_down
+      @printed_upside_down = true
+    end
+
+    def printed_upside_down?
+      @printed_upside_down
     end
 
     # Declares an adjustable number and defines a reader with the same name.
