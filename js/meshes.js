@@ -37,6 +37,8 @@ function evaluate(tree, created) {
     }
     case 'move':
       return toManifold(tree.child, created).translate(tree.offset);
+    case 'rotate':
+      return toManifold(tree.child, created).rotate(tree.degrees);
     case 'union':
     case 'difference':
     case 'intersection': {

@@ -101,6 +101,10 @@ module Nook
       move(z: distance)
     end
 
+    def rotate(x: 0, y: 0, z: 0)
+      Shape.new(op: 'rotate', degrees: [x, y, z], child: @tree)
+    end
+
     private
 
     def combine(op, other)

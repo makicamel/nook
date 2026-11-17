@@ -51,6 +51,8 @@ end
     - Union, difference, and intersection of shapes
 - `move(x:, y:, z:)`, `up(distance)`
     - Move a shape
+- `rotate(x:, y:, z:)`
+    - Rotate a shape around the axes through the origin, in degrees
 - `printed_upside_down`
     - Declares that the model prints upside down, with its top on the bed. The preview shows it turned over
 
