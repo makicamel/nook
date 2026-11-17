@@ -1,0 +1,8 @@
+# Filament colors that parts can use. color is the value in Bambu Studio's filament color table,
+# and code is the filament's color code there.
+ivory_white: { filament: 'PLA Matte', code: '11100', color: '#FFFFFF' }
+charcoal: { filament: 'PLA Matte', code: '11101', color: '#000000' }
+dark_red: { filament: 'PLA Matte', code: '11202', color: '#BB3D43' }
+# The table gives a fully transparent value (#00000000) for this filament,
+# which cannot be drawn, so the preview uses a translucent white.
+clear: { filament: 'PETG Translucent', code: '32101', color: '#FFFFFF', opacity: 0.3 }

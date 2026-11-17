@@ -11,11 +11,11 @@ model 'inlay_tile' do
 
   dot = cylinder(diameter: dot_diameter, height: 1).up(5)
 
-  part :tile, color: :ivory do
+  part :tile, color: :ivory_white do
     box(size, size, 6) - dot
   end
 
-  part :dot, color: :red do
+  part :dot, color: :dark_red do
     dot
   end
 end
@@ -33,3 +33,14 @@ end
     - Move a shape
 
 Lengths are in millimeters.
+
+## Colors
+
+A part names its color from the list in `colors.yml`.
+
+```yaml
+dark_red: { filament: 'PLA Matte', code: '11202', color: '#BB3D43' }
+clear: { filament: 'PETG Translucent', code: '32101', color: '#FFFFFF', opacity: 0.3 }
+```
+
+`color` and `code` come from Bambu Studio's filament color table. `opacity` is for translucent filaments and defaults to 1.

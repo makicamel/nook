@@ -40,7 +40,7 @@ module Nook
       define_singleton_method(name) { value }
     end
 
-    # One part is printed with one filament.
+    # One part is printed with one filament. color is a name in colors.yml.
     def part(name, color:)
       @parts << { name: name.to_s, color: color.to_s, shape: yield.tree }
     end
