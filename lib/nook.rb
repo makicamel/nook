@@ -72,6 +72,12 @@ module Nook
     def prism(points, height:, offset: 0, corner_radius: 0)
       Shape.new(op: 'prism', points: points, height: height, offset: offset, corner_radius: corner_radius)
     end
+
+    # Wraps the given shapes tightly, like stretched film: the convex hull.
+    # Slices of different sizes stacked inside it make a slanted or rounded edge.
+    def wrap(*shapes)
+      Shape.new(op: 'wrap', children: shapes.map(&:tree))
+    end
   end
 
   class Shape

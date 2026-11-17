@@ -49,6 +49,8 @@ end
     - A flat outline given as `[x, y]` points, raised to `height`. `offset` grows the outline outward, or shrinks it when negative, and `corner_radius` rounds its corners
 - `+`, `-`, `&`
     - Union, difference, and intersection of shapes
+- `wrap(shape, ...)`
+    - Wraps the given shapes tightly, like stretched film (the convex hull)
 - `move(x:, y:, z:)`, `up(distance)`
     - Move a shape
 - `rotate(x:, y:, z:)`
