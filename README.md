@@ -1,6 +1,6 @@
 # nook
 
-A shelf for small things to 3D print. Shapes are written in Ruby and previewed in the browser.
+A shelf for small things to 3D print. Shapes are written in Ruby, previewed in the browser, and exported as 3MF.
 
 ## Usage
 
@@ -16,6 +16,7 @@ Open http://localhost:8932 and choose a model.
 - Each part can be given a filament color
 - Switching the display to "Mesh" drops the colors and shows how the surface is split into triangles
 - "Upside down" turns the preview over. It starts checked for a model declared with `printed_upside_down`
+- "Download 3MF" saves a file to open in a slicer
 
 ## Writing a model
 
@@ -71,7 +72,7 @@ lib/nook.rb       DSL for describing models
 lib/page.rb       Control panel (a Funicular component)
 models/           Models
 colors.yml        Filament colors
-js/               Mesh calculation and preview
+js/               Mesh calculation, preview, and 3MF export
 ```
 
 Ruby builds a tree of operations such as "subtract a cylinder from a cylinder", and JavaScript turns the tree into meshes. The control panel is written in Ruby as well. Libraries are loaded from a CDN with pinned versions.

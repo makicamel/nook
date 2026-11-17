@@ -28,6 +28,7 @@ module Nook
           part_section(@built[:parts])
         end
         display_section
+        button(disabled: !@built[:error].nil?, onclick: -> { host.download }) { 'Download 3MF' }
       end
     end
 

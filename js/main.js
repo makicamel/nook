@@ -1,9 +1,11 @@
 import { runRubySources } from './ruby.js';
 import { buildMeshes } from './meshes.js';
 import { Preview } from './preview.js';
+import { create3mf } from './three_mf.js';
 import { load as parseYaml } from 'js-yaml';
 
 const preview = new Preview(document.getElementById('preview'));
+let shown = null; // { name, parts } of the model on screen
 
 // What lib/page.rb calls. Data crosses the boundary as JSON strings.
 window.nookHost = {
@@ -11,8 +13,17 @@ window.nookHost = {
 
   show(json, mode, upsideDown, fitCamera) {
     const model = JSON.parse(json);
-    preview.show(buildMeshes(model.parts), mode, upsideDown);
+    shown = { name: model.name, parts: buildMeshes(model.parts) };
+    preview.show(shown.parts, mode, upsideDown);
     if (fitCamera) preview.fitCamera();
+  },
+
+  download() {
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(create3mf(shown.name, shown.parts));
+    link.download = `${shown.name}.3mf`;
+    link.click();
+    URL.revokeObjectURL(link.href);
   },
 };
 
