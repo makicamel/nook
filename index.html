@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>nook</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.187.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.187.0/examples/jsm/",
+        "manifold-3d": "https://cdn.jsdelivr.net/npm/manifold-3d@3.5.5/manifold.js",
+        "js-yaml": "https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.mjs"
+      }
+    }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/@picoruby/wasm-wasi@4.0.5/dist/init.iife.js"></script>
+  <script type="module" src="js/main.js"></script>
+</head>
+<body>
+  <aside id="panel"></aside>
+  <main>
+    <canvas id="preview"></canvas>
+  </main>
+</body>
+</html>

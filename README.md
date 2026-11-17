@@ -1,10 +1,25 @@
 # nook
 
-A shelf for small things to 3D print. Shapes are written in Ruby.
+A shelf for small things to 3D print. Shapes are written in Ruby and previewed in the browser.
+
+## Usage
+
+The site consists of static files only. Serve it locally with Ruby's static server, which needs the webrick gem.
+
+```bash
+ruby -run -e httpd . -p 8932
+```
+
+Open http://localhost:8932 and choose a model.
+
+- Moving a dimension slider updates the shape
+- Each part can be given a filament color
+- Switching the display to "Mesh" drops the colors and shows how the surface is split into triangles
+- "Upside down" turns the preview over. It starts checked for a model declared with `printed_upside_down`
 
 ## Writing a model
 
-Put one model per file in `models/`.
+Put one model per file in `models/` and add the file name to `models/index.json`.
 
 ```ruby
 model 'ruby' do
@@ -34,7 +49,7 @@ end
 - `move(x:, y:, z:)`, `up(distance)`
     - Move a shape
 - `printed_upside_down`
-    - Declares that the model prints upside down, with its top on the bed
+    - Declares that the model prints upside down, with its top on the bed. The preview shows it turned over
 
 Lengths are in millimeters.
 
@@ -48,3 +63,26 @@ clear: { filament: 'PETG Translucent', code: '32101', color: '#FFFFFF', opacity:
 ```
 
 `color` and `code` come from Bambu Studio's filament color table. `opacity` is for translucent filaments and defaults to 1.
+
+## Structure
+
+```
+lib/nook.rb       DSL for describing models
+lib/page.rb       Control panel (a Funicular component)
+models/           Models
+colors.yml        Filament colors
+js/               Mesh calculation and preview
+```
+
+Ruby builds a tree of operations such as "subtract a cylinder from a cylinder", and JavaScript turns the tree into meshes. The control panel is written in Ruby as well. Libraries are loaded from a CDN with pinned versions.
+
+- [PicoRuby.wasm](https://www.npmjs.com/package/@picoruby/wasm-wasi)
+    - Runs Ruby in the browser
+- [Funicular](https://picoruby.org/funicular)
+    - Renders the control panel. Bundled with PicoRuby.wasm
+- [manifold-3d](https://github.com/elalish/manifold)
+    - Calculates the union, difference, and intersection of shapes
+- [three.js](https://threejs.org/)
+    - Draws the preview
+- [js-yaml](https://github.com/nodeca/js-yaml)
+    - Reads `colors.yml`
