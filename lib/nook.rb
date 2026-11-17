@@ -50,8 +50,9 @@ module Nook
       Shape.new(op: 'box', size: [width, depth, height])
     end
 
-    def cylinder(diameter:, height:)
-      Shape.new(op: 'cylinder', diameter: diameter, height: height)
+    # top_diameter makes a cone, and a few segments make a prism or pyramid.
+    def cylinder(diameter:, height:, top_diameter: diameter, segments: nil)
+      Shape.new(op: 'cylinder', diameter: diameter, top_diameter: top_diameter, height: height, segments: segments)
     end
   end
 

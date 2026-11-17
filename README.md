@@ -27,6 +27,8 @@ end
     - A part printed in one color. The value of the block becomes its shape
 - `box(width, depth, height)`, `cylinder(diameter:, height:)`
     - Shapes centered on the x and y axes, with the bottom face on z = 0
+- `cylinder(..., top_diameter:, segments:)`
+    - Optional arguments. `top_diameter` makes a cone, and a few `segments` make a prism or pyramid
 - `+`, `-`, `&`
     - Union, difference, and intersection of shapes
 - `move(x:, y:, z:)`, `up(distance)`
